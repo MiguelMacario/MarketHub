@@ -5,12 +5,10 @@ import com.macariomiguel.ecommerceproject.dto.CategoryResponseDTO;
 import com.macariomiguel.ecommerceproject.service.CategoryService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/categorys")
+@RequestMapping("/categories")
 public class CategoryController {
 
     private final CategoryService categoryService;
@@ -22,6 +20,12 @@ public class CategoryController {
     @PostMapping
     public ResponseEntity<Void> createCategory(@RequestBody CategoryResponseDTO data){
         categoryService.createCategory(data);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id){
+        categoryService.deleteCategory(id);
         return ResponseEntity.ok().build();
     }
 

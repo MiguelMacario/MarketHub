@@ -28,6 +28,16 @@ public class ProductController {
         return productService.findByName(name);
     }
 
+    @GetMapping("category/{id}")
+    public List<ProductResponseDTO> findByCategory(@PathVariable Long id){
+        return productService.findByCategoryId(id);
+    }
+
+    @GetMapping("price")
+    public List<ProductResponseDTO> findByPriceBetween(@RequestParam Double minPrice, @RequestParam Double maxPrice){
+        return productService.findByPriceBetween(minPrice, maxPrice);
+    }
+
     @PostMapping
     public ResponseEntity<Void> createProduct(@RequestBody ProductRequestDTO productRequestDTO){
         productService.createProduct(productRequestDTO);

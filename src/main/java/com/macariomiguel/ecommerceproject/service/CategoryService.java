@@ -2,6 +2,7 @@ package com.macariomiguel.ecommerceproject.service;
 
 import com.macariomiguel.ecommerceproject.dto.CategoryResponseDTO;
 import com.macariomiguel.ecommerceproject.entity.Category;
+import com.macariomiguel.ecommerceproject.exceptions.ResourceNotFoundException;
 import com.macariomiguel.ecommerceproject.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,12 @@ public class CategoryService {
     public void createCategory(CategoryResponseDTO data){
         Category category = new Category(data);
         categoryRepository.save(category);
+    }
+
+    public void deleteCategory(Long id){
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category not found with id: " + id));
+        categoryRepository.deleteById(id);
     }
 
 }
