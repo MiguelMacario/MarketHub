@@ -1,6 +1,6 @@
-package entity;
+package com.macariomiguel.ecommerceproject.entity;
 
-import entity.enums.OrderStatus;
+import com.macariomiguel.ecommerceproject.entity.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +36,7 @@ public class Order {
     @OneToOne
     private Cart cart;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "orders", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<OrderItem> orderItems;
 
 

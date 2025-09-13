@@ -1,4 +1,4 @@
-package entity;
+package com.macariomiguel.ecommerceproject.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,7 +24,7 @@ public class Payment {
     private String paymentType;
     private LocalDateTime paymentDate;
 
-    @OneToOne(mappedBy = "order")
+    @OneToOne
     private Order order;
 
 }

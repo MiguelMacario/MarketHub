@@ -1,4 +1,4 @@
-package entity.enums;
+package com.macariomiguel.ecommerceproject.entity.enums;
 
 import lombok.Getter;
 

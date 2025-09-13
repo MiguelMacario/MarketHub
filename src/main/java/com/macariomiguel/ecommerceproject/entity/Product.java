@@ -1,6 +1,7 @@
-package entity;
+package com.macariomiguel.ecommerceproject.entity;
 
 
+import com.macariomiguel.ecommerceproject.dto.ProductRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,8 +26,13 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name="categories_id")
-    @Enumerated(EnumType.STRING)
     private Category category;
 
+    public Product(ProductRequestDTO data, Category category) {
+        this.name = data.name();
+        this.description = data.description();
+        this.price = data.price();
+        this.category = category;
+    }
 
 }

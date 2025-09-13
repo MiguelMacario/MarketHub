@@ -1,4 +1,4 @@
-package entity;
+package com.macariomiguel.ecommerceproject.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

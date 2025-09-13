@@ -1,0 +1,49 @@
+package com.macariomiguel.ecommerceproject.controller;
+
+import com.macariomiguel.ecommerceproject.dto.ProductRequestDTO;
+import com.macariomiguel.ecommerceproject.dto.ProductResponseDTO;
+import com.macariomiguel.ecommerceproject.service.ProductService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/products")
+public class ProductController {
+
+    private final ProductService productService;
+
+    public ProductController(ProductService productService){
+        this.productService = productService;
+    }
+
+    @GetMapping
+    public List<ProductResponseDTO> findAll(){
+        return productService.findAll();
+    }
+
+    @GetMapping("name/{name}")
+    public List<ProductResponseDTO> findByName(@PathVariable String name){
+        return productService.findByName(name);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> createProduct(@RequestBody ProductRequestDTO productRequestDTO){
+        productService.createProduct(productRequestDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("{id}")
+    public ResponseEntity<Void> updateProduct(@PathVariable Long id, @RequestBody ProductRequestDTO data){
+        productService.updateProduct(data, id);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
+        productService.deleteProduct(id);
+        return ResponseEntity.ok().build();
+    }
+
+}

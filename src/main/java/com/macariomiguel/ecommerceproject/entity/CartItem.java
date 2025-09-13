@@ -1,5 +1,4 @@
-package entity;
-
+package com.macariomiguel.ecommerceproject.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -12,16 +11,16 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_order_items")
-public class OrderItem {
+@Table(name = "tb_cart_items")
+public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @JoinColumn(name="cart_id")
+    private Cart cart;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -31,11 +30,10 @@ public class OrderItem {
     private Integer quantity;
     private Double price;
 
-    public OrderItem(CartItem item) {
-        this.product = item.getProduct();
-        this.name = item.getName();
-        this.quantity = item.getQuantity();
-        this.price = item.getPrice();
+    public CartItem(Product product, Integer quantity) {
+        this.name = product.getName();
+        this.quantity = quantity;
+        this.price = product.getPrice();
     }
 
 }

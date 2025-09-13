@@ -1,6 +1,6 @@
-package entity;
+package com.macariomiguel.ecommerceproject.entity;
 
-import entity.enums.Role;
+import com.macariomiguel.ecommerceproject.entity.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -40,6 +40,12 @@ public class User implements UserDetails {
 
     @OneToMany
     private List<Order> orders;
+
+    public User(String login, String encryptedPassword, Role role) {
+        this.login = login;
+        this.password = encryptedPassword;
+        this.role = role;
+    }
 
 
     @Override

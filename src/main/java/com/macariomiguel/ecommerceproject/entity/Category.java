@@ -1,4 +1,4 @@
-package entity;
+package com.macariomiguel.ecommerceproject.entity;
 
 
 import jakarta.persistence.*;
@@ -23,7 +23,7 @@ public class Category {
 
     private String name;
 
-    @OneToMany(mappedBy="products")
+    @OneToMany
     private List<Product> products;
 
 }
