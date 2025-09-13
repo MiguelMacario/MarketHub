@@ -1,5 +1,6 @@
 package com.macariomiguel.ecommerceproject.service;
 
+import com.macariomiguel.ecommerceproject.dto.CategoryResponseDTO;
 import com.macariomiguel.ecommerceproject.entity.Category;
 import com.macariomiguel.ecommerceproject.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,11 @@ public class CategoryService {
 
     public Optional<Category> findByName(String name){
         return categoryRepository.findByNameIgnoreCase(name);
+    }
+
+    public void createCategory(CategoryResponseDTO data){
+        Category category = new Category(data);
+        categoryRepository.save(category);
     }
 
 }

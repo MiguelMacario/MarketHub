@@ -1,6 +1,7 @@
 package com.macariomiguel.ecommerceproject.entity;
 
 
+import com.macariomiguel.ecommerceproject.dto.CategoryResponseDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,11 @@ public class Category {
 
     private String name;
 
-    @OneToMany
+    @OneToMany(mappedBy = "category")
     private List<Product> products;
+
+    public Category(CategoryResponseDTO data){
+        this.name = data.name();
+    }
 
 }

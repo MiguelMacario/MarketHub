@@ -44,6 +44,13 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
+    public List<ProductResponseDTO> findByCategoryId(Long id) {
+        return productRepository.findByCategoryId(id)
+                .stream()
+                .map(ProductResponseDTO :: new)
+                .collect(Collectors.toList());
+    }
+
     public void updateProduct(ProductRequestDTO data, Long id) {
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
