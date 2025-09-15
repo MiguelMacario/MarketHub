@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.Set;
 
 
 @Setter
@@ -26,17 +26,16 @@ public class Cart {
     @OneToOne
     private Product product;
 
-    @OneToOne
-    private Order order;
-
-    @OneToMany
-    private List<CartItem> cartItems;
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    private Set<CartItem> cartItems;
 
     private Double totalPrice;
 
-    private void addCartItem(Product product, Integer quantity) {
-        CartItem cartItem = new CartItem(product, quantity);
-        cartItems.add(cartItem);
+    @OneToOne(mappedBy = "cart")
+    private Order order;
+
+    public void addCartItems(CartItem cartItem) {
+        this.cartItems.add(cartItem);
     }
 
 

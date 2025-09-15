@@ -1,11 +1,9 @@
 package com.macariomiguel.ecommerceproject.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Setter
 @Getter
 @NoArgsConstructor
@@ -23,7 +21,7 @@ public class CartItem {
     private Cart cart;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @EqualsAndHashCode.Include
     private Product product;
 
     private String name;
@@ -34,6 +32,9 @@ public class CartItem {
         this.name = product.getName();
         this.quantity = quantity;
         this.price = product.getPrice();
+        this.product = product;
     }
+
+
 
 }

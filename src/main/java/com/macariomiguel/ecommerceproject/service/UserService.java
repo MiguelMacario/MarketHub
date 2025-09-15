@@ -1,8 +1,10 @@
 package com.macariomiguel.ecommerceproject.service;
 
 import com.macariomiguel.ecommerceproject.dto.RegisterDTO;
+import com.macariomiguel.ecommerceproject.entity.Cart;
 import com.macariomiguel.ecommerceproject.entity.User;
 import com.macariomiguel.ecommerceproject.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +24,9 @@ public class UserService {
     public void register(RegisterDTO data){
         String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
         User newUser = new User(data.login(), encryptedPassword, data.role());
+        Cart cart = new Cart();
+        cart.setUser(newUser);
+        newUser.setCart(cart);
         userRepository.save(newUser);
     }
 
