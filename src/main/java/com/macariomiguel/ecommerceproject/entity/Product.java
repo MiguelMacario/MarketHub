@@ -24,6 +24,9 @@ public class Product {
     private String description;
     private Double price;
 
+    @Column(unique = true)
+    private String sku;
+
     @ManyToOne
     @JoinColumn(name="categories_id")
     private Category category;
@@ -32,6 +35,7 @@ public class Product {
         this.name = data.name();
         this.description = data.description();
         this.price = data.price();
+        this.sku = data.sku();
         this.category = category;
     }
 

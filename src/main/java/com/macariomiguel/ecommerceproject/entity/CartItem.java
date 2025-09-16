@@ -28,11 +28,15 @@ public class CartItem {
     private Integer quantity;
     private Double price;
 
+    @Column(unique = true)
+    private String SKU;
+
     public CartItem(Product product, Integer quantity) {
         this.name = product.getName();
         this.quantity = quantity;
         this.price = product.getPrice();
         this.product = product;
+        this.SKU = product.getSku();
     }
 
 

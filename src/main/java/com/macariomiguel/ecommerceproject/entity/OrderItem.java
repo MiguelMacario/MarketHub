@@ -31,6 +31,9 @@ public class OrderItem {
     private Integer quantity;
     private Double price;
 
+    @Column(unique = true)
+    private String SKU;
+
     public OrderItem(CartItem item) {
         this.product = item.getProduct();
         this.name = item.getName();

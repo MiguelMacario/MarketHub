@@ -27,19 +27,14 @@ public class CartService {
         this.auth = auth;
     }
 
-    private void addCartItem(Long id, Integer quantity) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+    public void addCartItem(String sku, Integer quantity) {
+        Product product = existingProduct(sku);
 
         User currentUser = auth.currentUser();
         Cart cart = cartRepository.findByUser_Id(currentUser.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cart not found"));
 
-        CartItem existingItem = cart.getCartItems()
-                .stream()
-                .filter(item -> item.getProduct().getId().equals(product.getId()))
-                .findFirst()
-                .orElse(null);
+        CartItem existingItem = existingCartItem(cart, product);
 
         if (existingItem != null) {
             existingItem.setQuantity(existingItem.getQuantity() + quantity);
@@ -51,18 +46,71 @@ public class CartService {
     }
 
     public List<CartItemResponseDTO> showCart() {
-        User currentUser = auth.currentUser();
-        Cart cart = cartRepository.findByUser_Id(currentUser.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Cart not found"));
+        Cart cart = userCart();
 
         return cart.getCartItems()
                 .stream()
-                .map(CartItemResponseDTO:: new)
+                .map(CartItemResponseDTO :: new)
                 .collect(Collectors.toList());
     }
 
 
+    public void deleteCartItem(String sku, Integer quantity) {
+        Product product = existingProduct(sku);
 
+        Cart cart = userCart();
+
+        CartItem existingItem = existingCartItem(cart, product);
+
+        if (existingItem == null) {
+            throw new ResourceNotFoundException("Item not found in cart");
+        }
+
+        if (quantity == null || quantity >= existingItem.getQuantity()) {
+            cart.getCartItems().remove(existingItem);
+        } else {
+            existingItem.setQuantity(existingItem.getQuantity() - quantity);
+        }
+
+        cartRepository.save(cart);
+    }
+
+    private void updateCartItemQuantity(String sku, Integer newQuantity){
+        Product product = existingProduct(sku);
+
+        Cart cart = userCart();
+
+        CartItem existingItem = existingCartItem(cart, product);
+
+        if (existingItem == null) {
+            throw new ResourceNotFoundException("Item not found in cart");
+        }
+
+        existingItem.setQuantity(newQuantity);
+        cartRepository.save(cart);
+    }
+
+    private CartItem existingCartItem(Cart cart, Product product) {
+        return cart.getCartItems()
+                .stream()
+                .filter(item -> item.getProduct().getSku().equals(product.getSku()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    private Product existingProduct(String sku) {
+        return productRepository.findBySkuIgnoreCase(sku)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
+    }
+
+    private User currentUser() {
+        return auth.currentUser();
+    }
+
+    private Cart userCart() {
+        return cartRepository.findByUser_Id(currentUser().getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Cart not found"));
+    }
 
 
 }
