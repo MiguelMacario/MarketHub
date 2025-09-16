@@ -3,12 +3,11 @@ package com.macariomiguel.ecommerceproject.dto;
 
 import com.macariomiguel.ecommerceproject.entity.CartItem;
 
-public record CartItemResponseDTO(String name, Integer quantity, Double price) {
+
+public record CartItemResponseDTO(Integer quantity) {
     public CartItemResponseDTO(CartItem item) {
         this(
-                item.getName(),
-                item.getQuantity(),
-                item.getPrice()
+                item.getQuantity()
         );
     }
 }

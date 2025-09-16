@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Setter
 @Getter
 @NoArgsConstructor
@@ -21,7 +23,7 @@ public class OrderItem {
 
     @ManyToOne
     @JoinColumn(name = "order_id")
-    private Order orders;
+    private Order order;
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -29,16 +31,16 @@ public class OrderItem {
 
     private String name;
     private Integer quantity;
-    private Double price;
+    private BigDecimal price;
 
-    @Column(unique = true)
     private String SKU;
 
     public OrderItem(CartItem item) {
         this.product = item.getProduct();
-        this.name = item.getName();
+        this.name = item.getProduct().getName();
         this.quantity = item.getQuantity();
-        this.price = item.getPrice();
+        this.price = item.getProduct().getPrice();
+        this.SKU = item.getProduct().getSku();
     }
 
 }

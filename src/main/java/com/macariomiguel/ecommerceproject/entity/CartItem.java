@@ -3,7 +3,7 @@ package com.macariomiguel.ecommerceproject.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode
 @Setter
 @Getter
 @NoArgsConstructor
@@ -21,22 +21,14 @@ public class CartItem {
     private Cart cart;
 
     @ManyToOne
-    @EqualsAndHashCode.Include
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
-    private String name;
     private Integer quantity;
-    private Double price;
-
-    @Column(unique = true)
-    private String SKU;
 
     public CartItem(Product product, Integer quantity) {
-        this.name = product.getName();
         this.quantity = quantity;
-        this.price = product.getPrice();
         this.product = product;
-        this.SKU = product.getSku();
     }
 
 

@@ -2,7 +2,9 @@ package com.macariomiguel.ecommerceproject.dto;
 
 import com.macariomiguel.ecommerceproject.entity.Product;
 
-public record ProductResponseDTO(String name, String description, Double price, Long category_id) {
+import java.math.BigDecimal;
+
+public record ProductResponseDTO(String name, String description, BigDecimal price, Long category_id) {
     public ProductResponseDTO(Product product) {
         this (
                 product.getName(),

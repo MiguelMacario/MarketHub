@@ -30,7 +30,7 @@ public class CartService {
     public void addCartItem(String sku, Integer quantity) {
         Product product = existingProduct(sku);
 
-        User currentUser = auth.currentUser();
+        User currentUser = currentUser();
         Cart cart = cartRepository.findByUser_Id(currentUser.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Cart not found"));
 
