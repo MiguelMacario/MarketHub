@@ -23,19 +23,15 @@ public class Cart {
     @OneToOne
     private User user;
 
-    @OneToOne
-    private Product product;
-
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<CartItem> cartItems;
-
-    private Double totalPrice;
 
     @OneToOne(mappedBy = "cart")
     private Order order;
 
     public void addCartItems(CartItem cartItem) {
         this.cartItems.add(cartItem);
+        cartItem.setCart(this);
     }
 
 

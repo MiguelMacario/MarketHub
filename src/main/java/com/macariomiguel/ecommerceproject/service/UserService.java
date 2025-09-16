@@ -4,7 +4,6 @@ import com.macariomiguel.ecommerceproject.dto.RegisterDTO;
 import com.macariomiguel.ecommerceproject.entity.Cart;
 import com.macariomiguel.ecommerceproject.entity.User;
 import com.macariomiguel.ecommerceproject.repository.UserRepository;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
