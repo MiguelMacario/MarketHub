@@ -1,4 +1,6 @@
 package com.macariomiguel.ecommerceproject.dto;
 
-public record CartItemRequestDTO(String sku, Integer quantity) {
+import lombok.NonNull;
+
+public record CartItemRequestDTO(@NonNull String sku, Integer quantity) {
 }

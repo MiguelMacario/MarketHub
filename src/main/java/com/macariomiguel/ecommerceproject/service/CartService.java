@@ -75,7 +75,7 @@ public class CartService {
         cartRepository.save(cart);
     }
 
-    private void updateCartItemQuantity(String sku, Integer newQuantity){
+    public void updateCartItemQuantity(String sku, Integer newQuantity){
         Product product = existingProduct(sku);
 
         Cart cart = userCart();

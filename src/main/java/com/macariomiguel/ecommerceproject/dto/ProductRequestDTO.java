@@ -1,4 +1,6 @@
 package com.macariomiguel.ecommerceproject.dto;
 
-public record ProductRequestDTO(String name, String description, Double price, Long category_id, String sku) {
+import lombok.NonNull;
+
+public record ProductRequestDTO(String name, String description, Double price, Long category_id, @NonNull String sku) {
 }
