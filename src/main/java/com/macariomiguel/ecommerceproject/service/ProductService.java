@@ -58,9 +58,9 @@ public class ProductService {
                 .collect(Collectors.toList());
     }
 
-    public void updateProduct(ProductRequestDTO data, Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+    public void updateProduct(ProductRequestDTO data, String sku) {
+        Product product = productRepository.findBySkuIgnoreCase(sku)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with sku: " + sku));
         if (data.name() != null) {
             product.setName(data.name());
         }
@@ -78,9 +78,9 @@ public class ProductService {
         productRepository.save(product);
     }
 
-    public void deleteProduct(Long id) {
-        Product product = productRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Product not found with id: " + id));
+    public void deleteProduct(String sku) {
+        Product product = productRepository.findBySkuIgnoreCase(sku)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found with sku: " + sku));
         productRepository.delete(product);
     }
 

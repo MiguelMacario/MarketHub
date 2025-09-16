@@ -44,15 +44,15 @@ public class ProductController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("{id}")
-    public ResponseEntity<Void> updateProduct(@PathVariable Long id, @RequestBody ProductRequestDTO data){
-        productService.updateProduct(data, id);
+    @PatchMapping("{sku}")
+    public ResponseEntity<Void> updateProduct(@PathVariable String sku, @RequestBody ProductRequestDTO data){
+        productService.updateProduct(data, sku);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<Void> deleteProduct(@PathVariable Long id){
-        productService.deleteProduct(id);
+    @DeleteMapping("{sku}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable String sku){
+        productService.deleteProduct(sku);
         return ResponseEntity.ok().build();
     }
 
